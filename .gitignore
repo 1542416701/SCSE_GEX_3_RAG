@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+
+# Vector store, built locally at runtime from the policy file
+chroma_db/
+
+# Local environment files
+.env
