@@ -1,29 +1,24 @@
 #################### AI USE DECLARATION ####################
-# AI assistance was used for the development of this file,
-# using only free / open-source models — no paid AI service:
+# AI tool: Qwen, run locally through Ollama, for framework
+# drafting; all code was reviewed, adjusted and verified by me.
 #
-# AI models used:
-#   - Local (Ollama, http://127.0.0.1:11434):
-#       Qwen3 family (1.7B / 4B / 8B) for daily coding;
-#       qwen3:0.6b as the runtime model of this RAG (the 8B
-#       model is NOT used at runtime);
-#       nomic-embed-text via Ollama for embeddings.
-#   - Initial testing (mandatory): Qwen Flash on Alibaba
-#     (limited trial access).
-#   - Final testing (mandatory): Qwen3.5-Plus on Alibaba
-#     (limited trial access); no other model used for tests.
+# AI-assisted segments (tags inline) and methods used:
+#   [AI-SETUP]  configuration — collection, embedding model, top-k
+#   [AI-VECTOR] vector store — Chroma + Ollama embeddings, lazy
+#               singleton, batched indexing with retry
+#   [AI-TOOL]   retrieval tool — @tool wrapper, fetch + format
 #
-# Compliance: no agent frameworks (OpenClaw, Dify, MetaGPT,
-# etc.); this is plain LangChain code. Every AI-assisted
-# segment is marked with an [AI-...] tag.
-# Tags in this file: [AI-SETUP] [AI-VECTOR] [AI-TOOL]
-#
-# Why AI: one clean, consistent framework; helper reuse to
-# avoid duplicate code; edge cases (missing facts, retriever
-# failures, grounding) handled in one pass.
-# Principle: keep it simple — the minimum code needed.
-# I reviewed, adjusted and verified all AI-drafted code; the
-# usage is documented in the Project Report.
+# Why AI was used:
+#   - one clean, consistent framework (readable and presentable);
+#   - avoid repetitive code through shared helpers;
+#   - edge cases (missing facts, retriever failures) handled in
+#     one pass.
+# Guiding principle: keep it simple — the minimum code needed.
+# Course compliance: only Qwen models (local Ollama for dev;
+# Qwen Flash for initial test, Qwen3.5-Plus for final test);
+# no agent frameworks (OpenClaw / Dify / MetaGPT).
+# Author responsibility: verified by running check_data, rag.py
+# and agent.py — grounded answers, no invented phone number.
 ############################################################
 
 
