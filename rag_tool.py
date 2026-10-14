@@ -1,3 +1,32 @@
+#################### AI USE DECLARATION ####################
+# AI assistance was used for the development of this file,
+# using only free / open-source models — no paid AI service:
+#
+# AI models used:
+#   - Local (Ollama, http://127.0.0.1:11434):
+#       Qwen3 family (1.7B / 4B / 8B) for daily coding;
+#       qwen3:0.6b as the runtime model of this RAG (the 8B
+#       model is NOT used at runtime);
+#       nomic-embed-text via Ollama for embeddings.
+#   - Initial testing (mandatory): Qwen Flash on Alibaba
+#     (limited trial access).
+#   - Final testing (mandatory): Qwen3.5-Plus on Alibaba
+#     (limited trial access); no other model used for tests.
+#
+# Compliance: no agent frameworks (OpenClaw, Dify, MetaGPT,
+# etc.); this is plain LangChain code. Every AI-assisted
+# segment is marked with an [AI-...] tag.
+# Tags in this file: [AI-SETUP] [AI-VECTOR] [AI-TOOL]
+#
+# Why AI: one clean, consistent framework; helper reuse to
+# avoid duplicate code; edge cases (missing facts, retriever
+# failures, grounding) handled in one pass.
+# Principle: keep it simple — the minimum code needed.
+# I reviewed, adjusted and verified all AI-drafted code; the
+# usage is documented in the Project Report.
+############################################################
+
+
 """
 RAG retrieval tool for the university IT support knowledge base.
 
@@ -18,7 +47,7 @@ from policy_loader import load_policy_documents
 
 
 # ----------------------------------------------------------------------
-# Configuration
+# [AI-SETUP] Configuration: paths, collection, embedding model, top-k
 # ----------------------------------------------------------------------
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -38,7 +67,7 @@ _vectorstore = None
 
 
 # ----------------------------------------------------------------------
-# Vector store / retriever
+# [AI-VECTOR] Vector store / retriever
 # ----------------------------------------------------------------------
 
 def _add_with_retry(vectorstore, documents, attempts=3):
@@ -97,7 +126,7 @@ def get_retriever():
 
 
 # ----------------------------------------------------------------------
-# Agent tool
+# [AI-TOOL] Agent tool
 # ----------------------------------------------------------------------
 
 @tool("policy_search")

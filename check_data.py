@@ -1,3 +1,15 @@
+#################### AI USE DECLARATION ####################
+# [AI-CHECK] This data-integrity verification script was
+# drafted with AI assistance (Qwen via Ollama, local; free
+# model, no paid service), then reviewed and run by me.
+# It uses no Ollama model or Chroma — only Python checks.
+# AI tools used across the project:
+#   Qwen3 family (1.7B / 4B / 8B) via Ollama for daily
+#   coding; Qwen Flash (initial test) and Qwen3.5-Plus
+#   (final test) on Alibaba are the mandatory test models.
+# No agent frameworks (OpenClaw / Dify / MetaGPT) used.
+############################################################
+
 """Data integrity check; no Ollama or Chroma required."""
 import json
 import re

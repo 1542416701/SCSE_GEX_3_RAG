@@ -1,3 +1,32 @@
+#################### AI USE DECLARATION ####################
+# AI assistance was used for the development of this file,
+# using only free / open-source models — no paid AI service:
+#
+# AI models used:
+#   - Local (Ollama, http://127.0.0.1:11434):
+#       Qwen3 family (1.7B / 4B / 8B) for daily coding;
+#       qwen3:0.6b as the runtime model of this RAG (the 8B
+#       model is NOT used at runtime);
+#       nomic-embed-text via Ollama for embeddings.
+#   - Initial testing (mandatory): Qwen Flash on Alibaba
+#     (limited trial access).
+#   - Final testing (mandatory): Qwen3.5-Plus on Alibaba
+#     (limited trial access); no other model used for tests.
+#
+# Compliance: no agent frameworks (OpenClaw, Dify, MetaGPT,
+# etc.); this is plain LangChain code. Every AI-assisted
+# segment is marked with an [AI-...] tag.
+# Tags in this file: [AI-SETUP] [AI-PROMPT] [AI-CHAIN] [AI-MAIN]
+#
+# Why AI: one clean, consistent framework; helper reuse to
+# avoid duplicate code; edge cases (missing facts, retriever
+# failures, grounding) handled in one pass.
+# Principle: keep it simple — the minimum code needed.
+# I reviewed, adjusted and verified all AI-drafted code; the
+# usage is documented in the Project Report.
+############################################################
+
+
 """
 Deterministic retrieve-then-answer (RAG) pipeline.
 
@@ -21,11 +50,13 @@ from langchain_core.output_parsers import StrOutputParser
 from rag_tool import get_retriever
 
 
+# [AI-SETUP] Model / endpoint configuration
 LLM_MODEL = "qwen3:0.6b"
 OLLAMA_BASE_URL = os.environ.get(
     "OLLAMA_BASE_URL", "http://127.0.0.1:11434"
 )
 
+# [AI-PROMPT] System rules enforcing grounding (never invent facts)
 SYSTEM_RULES = (
     "You are a university IT support assistant. "
     "Answer using ONLY the policy excerpts provided below. "
@@ -43,6 +74,7 @@ PROMPT = ChatPromptTemplate.from_messages(
 )
 
 
+# [AI-CHAIN] Format retrieved documents into one context block
 def _format_docs(docs):
     blocks = []
     for doc in docs:
@@ -53,6 +85,7 @@ def _format_docs(docs):
     return "\n\n".join(blocks)
 
 
+# [AI-CHAIN] LCEL composition: retrieval -> prompt -> model -> parser
 def build_rag_chain():
     """Build the context-retrieval + answer generation chain."""
     llm = ChatOllama(
@@ -72,11 +105,13 @@ def build_rag_chain():
     return chain
 
 
+# [AI-CHAIN] Answer a single question using the RAG pipeline
 def ask(question):
     """Answer a single question using the RAG pipeline."""
     return build_rag_chain().invoke(question)
 
 
+# [AI-MAIN] Entry point; only runs when executed directly
 if __name__ == "__main__":
     question = " ".join(sys.argv[1:]) or (
         "What exact phone number should I call for the "
